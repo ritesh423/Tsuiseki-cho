@@ -1,6 +1,5 @@
-package com.riteshapps.tsuiseki_ch.ui.theme
+package com.riteshapps.tsuiseki_ch.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

@@ -10,12 +10,14 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.riteshapps.tsuiseki_ch.ui.theme.TsuisekichōTheme
+import com.riteshapps.tsuiseki_ch.theme.TsuisekichōTheme
 
 data class BottomNavigationItem(
     val title: String,
@@ -44,18 +46,23 @@ class MainActivity : ComponentActivity() {
                     ),
                     BottomNavigationItem(
                         title = "Manga",
+                        selectedIcon = Icons.Filled.ThumbUp,
+                        unSelectedIcon = Icons.Outlined.ThumbUp,
+                        hasNews = false
+                    ),
+                    BottomNavigationItem(
+                        title = "Search",
                         selectedIcon = Icons.Filled.Search,
                         unSelectedIcon = Icons.Outlined.Search,
                         hasNews = false
                     ),
                     BottomNavigationItem(
-                        title = "Other",
-                        selectedIcon = Icons.Filled.Notifications,
-                        unSelectedIcon = Icons.Outlined.Notifications,
+                        title = "Settings",
+                        selectedIcon = Icons.Filled.Settings,
+                        unSelectedIcon = Icons.Outlined.Settings,
                         hasNews = false
                     )
                 )
-
                 var selectedItemIndex by rememberSaveable {
                     mutableIntStateOf(0)
                 }

@@ -1,4 +1,4 @@
-package com.riteshapps.tsuiseki_ch.ui.theme
+package com.riteshapps.tsuiseki_ch.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
