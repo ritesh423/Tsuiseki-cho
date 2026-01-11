@@ -1,13 +1,13 @@
-package com.riteshapps.tsuiseki_ch.data.api
+package com.riteshapps.tsuiseki_ch.data.remote.authentication
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitInstance {
+object AuthRetrofitInstance {
 
-    fun getInstance() : Retrofit {
+    fun create(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://kitsu.io/api/edge/")
+            .baseUrl("https://kitsu.io/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

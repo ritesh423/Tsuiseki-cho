@@ -130,24 +130,31 @@ fun MainScreen() {
         ) { innerPadding ->
 
             NavHost(
-                navController = navController,
-                startDestination = Screen.Splash.route,
-                modifier = Modifier.padding(innerPadding)
+                navController,
+                startDestination = Screen.Splash.route
             ) {
 
                 composable(Screen.Splash.route) {
                     SplashScreen {
-                        navController.navigate(Screen.Anime.route) {
-                            popUpTo(Screen.Splash.route) { inclusive = true }
+                        if (hasToken) {
+                            navController.navigate(Screen.Home.route)
+                        } else {
+                            navController.navigate(Screen.Login.route)
                         }
                     }
                 }
 
-                composable(Screen.Anime.route) { /* AnimeScreen() */ }
-                composable(Screen.Manga.route) { /* MangaScreen() */ }
-                composable(Screen.Search.route) { /* SearchScreen() */ }
-                composable(Screen.Settings.route) { /* SettingsScreen() */ }
+                composable(Screen.Login.route) {
+                    LoginScreen {
+                        navController.navigate(Screen.Anime.route) {
+                            popUpTo(Screen.Login.route) { inclusive = true }
+                        }
+                    }
+                }
+
+                composable(Screen.Anime.route) { HomeScreen() }
             }
+
         }
     }
 }

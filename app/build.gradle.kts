@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    kotlin("kapt")
 }
 
 android {
@@ -52,6 +53,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.compose.animation)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.browser)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,9 +70,30 @@ dependencies {
     // Converter library (Gson example) - required to parse JSON to Kotlin objects
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    // OkHttp (underlying HTTP client)
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+
 
     //ExtendIcons
     implementation("androidx.compose.material:material-icons-extended")
+
+    //DataStore
+    implementation("androidx.datastore:datastore-preferences:1.2.0")
+
+
+    // Optional: for using DataStore in a ViewModel with Compose lifecycle
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0")
+
+    //Hilt
+    implementation("com.google.dagger:hilt-android:2.51")
+    kapt("com.google.dagger:hilt-compiler:2.51")
+
+    //ViewModel & Lifecycle
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.6")
+
+
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
 }
