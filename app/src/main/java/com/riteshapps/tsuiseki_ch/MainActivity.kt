@@ -7,7 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.*
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.riteshapps.tsuiseki_ch.presentation.screens.MainScreen
+import com.riteshapps.tsuiseki_ch.theme.TsuisekichōTheme
 import com.riteshapps.tsuiseki_ch.ui.utils.Screen
+import dagger.hilt.android.AndroidEntryPoint
 
 data class BottomNavigationItem(
     val screen: Screen,
@@ -17,6 +19,7 @@ data class BottomNavigationItem(
     val badgeCount: Int? = null
 )
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -25,7 +28,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            MainScreen()
+            TsuisekichōTheme { MainScreen() }
+
         }
     }
 }

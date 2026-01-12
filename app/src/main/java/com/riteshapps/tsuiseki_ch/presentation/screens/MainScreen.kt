@@ -29,6 +29,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.riteshapps.tsuiseki_ch.BottomNavigationItem
+import com.riteshapps.tsuiseki_ch.presentation.auth.LoginScreen
 import com.riteshapps.tsuiseki_ch.theme.TsuisekichōTheme
 import com.riteshapps.tsuiseki_ch.ui.utils.Screen
 import kotlin.collections.contains
@@ -40,13 +41,13 @@ fun MainScreen() {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
+    // Bottom bar only on main screens
     val showBottomBar = currentRoute in listOf(
         Screen.Anime.route,
         Screen.Manga.route,
         Screen.Search.route,
         Screen.Settings.route
     )
-
 
     TsuisekichōTheme {
 
@@ -76,9 +77,6 @@ fun MainScreen() {
                 hasNews = false
             )
         )
-        var selectedItemIndex by rememberSaveable {
-            mutableIntStateOf(0)
-        }
 
         Scaffold(
             modifier = Modifier.fillMaxSize(),
@@ -130,31 +128,39 @@ fun MainScreen() {
         ) { innerPadding ->
 
             NavHost(
-                navController,
-                startDestination = Screen.Splash.route
+                navController = navController,
+                startDestination = Screen.Splash.route,
+                modifier = Modifier.padding(innerPadding)
             ) {
 
+                // 🟢 Splash
                 composable(Screen.Splash.route) {
                     SplashScreen {
-                        if (hasToken) {
-                            navController.navigate(Screen.Home.route)
-                        } else {
-                            navController.navigate(Screen.Login.route)
+                        // TEMP: always go to Login
+                        // Later you can check token here
+                        navController.navigate(Screen.Login.route) {
+                            popUpTo(Screen.Splash.route) { inclusive = true }
                         }
                     }
                 }
 
+                // 🟢 Login
                 composable(Screen.Login.route) {
-                    LoginScreen {
-                        navController.navigate(Screen.Anime.route) {
-                            popUpTo(Screen.Login.route) { inclusive = true }
+                    LoginScreen(
+                        onLoginSuccess = {
+                            navController.navigate(Screen.Anime.route) {
+                                popUpTo(Screen.Login.route) { inclusive = true }
+                            }
                         }
-                    }
+                    )
                 }
 
-                composable(Screen.Anime.route) { HomeScreen() }
+                // 🟢 Main tabs
+                composable(Screen.Anime.route) { /* AnimeScreen() */ }
+                composable(Screen.Manga.route) { /* MangaScreen() */ }
+                composable(Screen.Search.route) { /* SearchScreen() */ }
+                composable(Screen.Settings.route) { /* SettingsScreen() */ }
             }
-
         }
     }
 }
